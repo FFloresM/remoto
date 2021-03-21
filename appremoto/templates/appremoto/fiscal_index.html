@@ -21,7 +21,7 @@
         </thead>
         <tbody>
             {% for cliente in clientes %}
-            <tr onclick="window.location='';"> 
+            <tr onclick="window.location='{% url 'appremoto:predios' cliente.id %}';"> 
                 <td>{{ cliente.nombre }}</td>
                 <td>{{ cliente.rut }}</td>
                 <td>{{ cliente.direccion }}</td>

@@ -1,0 +1,52 @@
+{% extends 'base_generic.html' %}
+
+{% block title%}
+    Predios por cliente
+{% endblock %}
+
+{% block page_content %}
+    <br>
+    <h3>Predios de {{cliente.nombre}}</h3>
+
+    <div class="accordion" id="accordionExample">
+        {% for predio in predios %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    {{predio}}
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <table class="table table-borderless">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Fecha de creación</th>
+                            <th scope="col">Estado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {%for pila in pilas%}
+                                {% if pila.predio.nombre == predio %}
+                                    <tr onclick="window.location='{% url 'app:mediciones-pila' pila.id %}';">
+                                        <td>{{ pila.nombreID }}</td>
+                                        <td>{{pila.fecha_creacion}}</td>
+                                        <td>{{materia.estado}}</td>
+                                    </tr>
+                                {% endif %}
+                            {%endfor%}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="alert alert-warning" role="alert">
+        <h5>No existen pilas registradas</h5>
+        </div>
+        
+        {% endfor %}
+</div>
+{% endblock page_content %}

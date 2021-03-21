@@ -18,6 +18,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = 'Gestión de datos y administación de usuarios SFPC'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/', include('app.urls', namespace='app')),
