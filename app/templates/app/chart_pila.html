@@ -1,0 +1,79 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+	GRAFICO PILA {{ pila.nombre.ID}}
+{% endblock %}
+
+{% block page_content %}
+<br>
+<h4 class="text-center">Gráfico para Pila {{pila.nombreID}}</h4>
+<canvas id="myChart" width="400" height="200"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ dias }},
+        datasets: [{
+            label: 'Temperatura',
+            data: {{ temps }},
+            borderColor: "rgb(255,0,0)",
+            fill: false,
+            lineTension: 0
+        },
+        {
+            label: "temp de volteo",
+            borderColor: "rgb(0,0,0)",
+            data: [55, 55,55,55,55],
+            fill: false,
+            lineTension: 0,
+            radius: 0
+        },
+        {
+            label: "Humedad",
+            borderColor: "rgb(0,0,255)",
+            data: {{ humedad }},
+            fill: false,
+            lineTension: 0
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: 'Evolución de Temperatura y Humedad'
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'días'
+                }
+            }],
+            yAxes: [{
+                display: true,
+                position: 'left',
+                scaleLabel: {
+                    display: true,
+                    labelString: 'temperatura',
+                },
+                ticks: {
+                    beginAtZero: true
+                }
+            },
+            {
+                //type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                display: true,
+                position: 'right',
+                scaleLabel: {
+                    display: true,
+                    labelString: 'humedad',
+                },
+                id: 'y-axis-1'
+			}]
+        }
+    }
+});
+</script>
+
+{% endblock %}

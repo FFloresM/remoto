@@ -1,0 +1,87 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+	GRAFICOS
+{% endblock %}
+
+{% block page_content %}
+<br>
+<h4 class="text-center">Gráficos de Registros</h4>
+<canvas id="myChart" width="400" height="200"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [1,2,3,4,5,6,7,8,9,10],
+        datasets: [{
+            label: 'Temperatura',
+            data: [10, 20, 30, 37, 42, 48, 50, 55, 60, 47],
+            borderColor: "rgb(255,0,0)",
+            fill: false,
+            lineTension: 0
+        },
+        {
+            label: "55°C",
+            borderColor: "rgb(0,0,0)",
+            data: [55, 55,55,55,55,55,55,55,55,55],
+            borderDash: [5, 5],
+            fill: false,
+            lineTension: 0,
+            radius: 0
+        },
+        {
+            label: "Humedad",
+            borderColor: "rgb(0,0,255)",
+            data: [10, 20, 15, 30, 26, 29, 19, 25, 30, 36],
+            fill: false,
+            lineTension: 0,
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: 'Evolución de Temperatura y Humedad'
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'días'
+                }
+            }],
+            yAxes: [{
+                display: true,
+                position: 'left',
+                scaleLabel: {
+                    display: true,
+                    labelString: 'temperatura (°C)',
+                },
+                ticks: {
+                    max: 80,
+                    min: 0,
+                    stepSize: 10
+                }
+            },
+            {
+                //type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                display: true,
+                position: 'right',
+                scaleLabel: {
+                    display: true,
+                    labelString: 'humedad (%)',
+                },
+                ticks: {
+                    max: 100,
+                    min: 0,
+                    stepSize: 10
+                },
+                id: 'y-axis-1'
+			}]
+        }
+    }
+});
+</script>
+
+{% endblock %}

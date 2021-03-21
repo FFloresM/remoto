@@ -1,0 +1,39 @@
+{% extends 'base_generic.html' %}
+
+{% block title%}
+    Inicio Fiscalización
+{% endblock %}
+
+{% block page_content %}
+    <br>
+    <h3>Clientes</h3>
+
+    <table class="table table-hover">
+     <caption>Lista de clientes</caption>
+        <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">RUN</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Email</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr onclick="window.location='';"> 
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.rut }}</td>
+                <td>{{ cliente.direccion }}</td>
+                <td>{{ cliente.telefono }}</td>
+                <td>{{ cliente.email }}</td>
+               
+            </tr>
+        {% endfor %}
+        </tbody>
+  </table>
+
+    
+
+
+{% endblock page_content %}

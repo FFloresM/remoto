@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      {% block title %}
+      {% endblock %}
+    </title>
+    {% load static %}  
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" >
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/jquery-3.5.1.js' %}"></script>
+    <script src="{% static '/js/Chart.js' %}"></script>
+
+     
+  </head>
+  <body>
+    {% block navbar %}
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'app:index' %}">Inicio</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link" href="/app/registros">Registros</a>
+              <a class="nav-link" href="{% url 'app:all-charts' %}">Grafico</a>
+              
+            </div>
+          </div>
+        </div>
+      </nav>
+    {% endblock %}
+
+    {% block content %}
+      <div class="container">
+        {% block page_content %}
+        {% endblock %}
+      </div>
+    {% endblock %}
+    <br>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+	Editar Pila
+{% endblock %}
+
+{% block page_content %}
+<br>
+<h3>Editar Pila</h3>
+<div class="container">
+	<form method="POST" enctype="multipart/form-data"> 
+	    <!-- Security token -->
+	    {% csrf_token %} 
+
+	    {% for field in form %}
+	    <div class="form-group">
+		    <label for="{{ field.name }}">{{ field.label }}</label>
+		    {{ field }}
+	  	</div>
+	  	{% endfor %}
+	  	<br>
+        <div class="container">
+			<input type="submit" class="btn btn-primary" value="Guardar">
+		</div>
+	</form>
+</div> 
+{% endblock %}

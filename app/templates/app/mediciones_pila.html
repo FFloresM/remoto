@@ -1,0 +1,96 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+	Registros
+{% endblock %}
+
+{% block page_content %}
+<br>
+<h3>Registros para Pila {{ pila.nombreID }}</h3>
+
+
+<table class="table">
+  <tbody>
+    <tr>
+      <td>
+        {% if pila.posicion %}
+        <b>Posición:</b> {{ pila.posicion }}<br>
+        {% endif%}
+        <b>Predio:</b> {{ pila.predio }} <br>
+        {%if pila.estado%}
+        <b>Estado:</b> {{ pila.estado }}
+        {%endif%}
+      </td>
+      {% if pila.foto %}
+        <td>
+          <img src="{{ pila.foto.url }}" alt="foto-pila"> 
+        </td>
+      {% else %}
+        <td>
+          <p>Sin imagen</p>
+        </td>
+      {% endif %}
+    </tr>
+  </tbody>
+</table>
+
+{% if materia_prima %}
+<br>
+<h4> Materias Primas </h4>
+
+<table class="table table-borderless">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Unidad medida</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for materia in materia_prima %}
+          <tr>
+            <td>{{ materia.nombre }}</td>
+            <td>{{materia.cantidad}}</td>
+            <td>{{materia.unidad_medida}}</td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+<div class="alert alert-warning" role="alert">
+        No existen registros de materias primas para pila {{pila.nombreID}}
+    </div>
+{% endif %}
+{% if registros %}
+<br>
+<h4> Mediciones </h4>
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Fecha</th>
+        <th scope="col">Temperatura</th>
+        <th scope="col">Humedad</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for medicion in registros %}
+          <tr>
+            <td>{{ medicion.fecha_creacion|date:'d/m/Y' }}</td>
+            <td>{{medicion.temperatura}}</td>
+            <td>{{medicion.humedad}}</td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a class="btn btn-primary" href="{% url 'app:chart' pila.id %}" role="button">Ver gráfico</a>
+  <a class="btn btn-primary" href="https://www.google.cl/maps/@-36.8174503,-73.0423481,14.21z" role="button">Ver Mapa</a>
+  <a class="btn btn-primary" href="{% url 'app:pdf' pila.id %}" role="button">Reporte</a>
+{% else %}
+    <div class="alert alert-warning" role="alert">
+        No existen mediciones para pila {{pila.nombreID}}
+    </div>
+{% endif %}
+
+{% endblock %}

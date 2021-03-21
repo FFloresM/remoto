@@ -1,0 +1,41 @@
+{% extends "base_generic.html" %}
+
+{% block title %}
+	Registros
+{% endblock %}
+
+{% block page_content %}
+<br>
+<h3><b>Registros</b></h3>
+{{ now }}
+{% if mediciones %}
+{% for pila in pilas %}
+<h4>Pila {{ pila.nombreID }}</h4>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Fecha</th>
+      <th scope="col">Temperatura</th>
+      <th scope="col">Humedad</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for medicion in mediciones %}
+  		{% if medicion.pila == pila %}
+	    <tr>
+	      <td>{{ medicion.fecha_creacion|date:'d/m/Y' }}</td>
+	      <td>{{medicion.temperatura}}</td>
+	      <td>{{medicion.humedad}}</td>
+	    </tr>
+	    {% endif %}
+	{% endfor %}
+  </tbody>
+</table>
+
+{% endfor %}
+{% else %}
+<h4 style="color: red;">No existen datos</h4>
+
+{% endif %}
+
+{% endblock %}

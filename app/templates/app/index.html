@@ -1,0 +1,89 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+	Composite App Data
+{% endblock %}
+
+{% block page_content %}
+<br>
+<div class="page-header">
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="card">
+			 	<div class="card-body">
+			    	<h3 class="card-title"><b>Datos Cliente</b></h3>
+			  	</div>
+			  	<ul class="list-group list-group-flush">
+			    	<li class="list-group-item">Nombre: <br>
+			    		{{ cliente.nombre }}</li>
+			    	<li class="list-group-item">Email: <br>
+			    		{{ cliente.email }}</li>
+			    	<li class="list-group-item">Dirección: <br>
+			    		{{ cliente.direccion }}</li>
+			  	</ul>
+			  	<div class="card-body">
+			    	<a href="#" class="card-link">Mi empresa</a>
+		  		</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="card">
+		  		<div class="card-body">
+		    		<h3 class="card-title"><b>Datos Lanza</b></h3>
+		  		</div>
+		  		<ul class="list-group list-group-flush">
+		  			{% for lanza in lanzas %}
+		    		<li class="list-group-item">Código: <br>
+		    			{{ lanza.codigo }}</li>
+		    		<li class="list-group-item">Modelo: <br>
+		    			{{ lanza.modelo }}</li>
+		    		<li class="list-group-item">Serie: <br>
+		    			{{ lanza.numero_serie }}</li>
+		    		{% endfor %}
+		  		</ul>
+		  		<div class="card-body">
+		    		<a href="{% url 'app:registros' %}" class="card-link">Registros</a>
+		  		</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+{% if pilas %}
+<h3><b>Pilas</b></h3>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Predio</th>
+      <th scope="col">Fecha creación</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for pila in pilas %}
+	    <tr>
+	      <th scope="row">{{forloop.counter}}</th>
+	      <th>{{pila.nombreID}}</th>
+	      <td>{{pila.predio}}</td>
+	      <td>{{pila.fecha_creacion|date:"d-m-Y"}}</td>
+	      <td>{{pila.estado}}</td>
+	      <th>
+	      	<a class="btn btn-warning btn-sm" href="{% url 'app:pila-update' pila.id %}" role="button">Editar</a>
+	      	<a class="btn btn-primary btn-sm" href="{% url 'app:mediciones-pila' pila.id %}" role="button">Ver Detalle</a>
+	      	<a class="btn btn-danger btn-sm" href="{% url 'app:pila-delete' pila.id %}" role="button">Eliminar</a>
+	      </th>
+	    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h4>No existen pilas registradas</h4>
+{% endif %}
+<a class="btn btn-primary" href="{% url 'app:pila-nueva' %}" role="button">Agregar Pila</a>
+<a class="btn btn-primary" href="{% url 'app:predio-nuevo' %}" role="button">Agregar predio</a>
+<a class="btn btn-primary" href="{% url 'app:materia-prima-nueva' %}" role="button">Agregar Materia Prima</a>
+
+{% endblock %}
