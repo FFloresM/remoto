@@ -8,7 +8,8 @@
       {% block title %}
       {% endblock %}
     </title>
-    {% load static %}  
+    {% load static %}
+    {% load filter_group %}  
     <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" >
     <link rel="stylesheet" href="{% static '/css/styles.css' %}" >
     <script src="{% static '/js/bootstrap.min.js' %}"></script>
@@ -21,7 +22,7 @@
     {% block navbar %}
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <div class="container">
-          <a class="navbar-brand" href="{% url 'app:index' %}">SFPC</a>
+          <a class="navbar-brand" href="{% url 'appremoto:clienteIndex' %}">SFPC</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -39,11 +40,15 @@
         <span class="navbar-text">Usiario: {{ user.get_username }}</span>
      <a class="nav-link" href="{% url 'logout'%}?next={{request.path}}">Cerrar sesión</a>
    {% else %}
-     <a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Iniciar sesión</a>
+     <a class="nav-link" href="{% url 'login'%}">Iniciar sesión</a>
    {% endif %} 
       </nav>
     {% endblock %}
-
+    {% if user|has_group:'Administrador' %}
+      <h1> Es administrador </h1>
+    {% else %}
+      <h1>NO Es administrador </h1>
+    {% endif %}
     {% block content %}
       <div class="container">
         {% block page_content %}

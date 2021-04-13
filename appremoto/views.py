@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from app.models import *
 from django.contrib.auth.decorators import login_required, user_passes_test
-# Create your views here.
 
 def es_fiscal(user):
     return user.groups.filter(name='Fiscalizador').exists()
@@ -20,7 +19,6 @@ def clienteIndex(request):
 @user_passes_test(es_fiscal)
 def predios(request, pk):
     cliente = Cliente.objects.get(id=pk)
-    #predios = Pila.objects.filter(cliente_id=pk).values_list('predio__nombre', flat=True).distinct()
     predios = Predio.objects.filter(cliente_id=pk)
     predios = list(predios)
     pilas = Pila.objects.filter(cliente_id=pk)
