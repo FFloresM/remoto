@@ -31,3 +31,4 @@ def predios(request, pk):
     }
 
     return render(request, 'appremoto/predios_cliente.html', context)
+    
