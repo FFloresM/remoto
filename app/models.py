@@ -79,5 +79,6 @@ class MateriaPrima(models.Model):
 class Predio(models.Model):
     """Toda pila pertenece a un predio"""
     nombre = models.CharField(max_length=100)
+    cliente = models.ForeignKey('Cliente', on_delete=models.DO_NOTHING, null=True)
     def __str__(self):
         return self.nombre

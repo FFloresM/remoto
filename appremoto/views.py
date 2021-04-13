@@ -10,7 +10,9 @@ def es_fiscal(user):
 @user_passes_test(es_fiscal)
 def clienteIndex(request):
     clientes = Cliente.objects.all()
-    context = {'clientes': clientes}
+    context = {
+        'clientes': clientes,
+    }
 
     return render(request, 'appremoto/fiscal_index.html', context)
 
@@ -18,7 +20,8 @@ def clienteIndex(request):
 @user_passes_test(es_fiscal)
 def predios(request, pk):
     cliente = Cliente.objects.get(id=pk)
-    predios = Pila.objects.filter(cliente_id=pk).values_list('predio__nombre', flat=True).distinct()
+    #predios = Pila.objects.filter(cliente_id=pk).values_list('predio__nombre', flat=True).distinct()
+    predios = Predio.objects.filter(cliente_id=pk)
     predios = list(predios)
     pilas = Pila.objects.filter(cliente_id=pk)
     context = {

@@ -29,6 +29,8 @@
                 <td>{{ cliente.direccion }}</td>
                 <td>{{ cliente.telefono }}</td>
                 <td>{{ cliente.email }}</td>
+                <td>{{ cliente.predio_set.all|length }}</td>
+                <td>{{ cliente.pila_set.all|length }}</td>
                
             </tr>
         {% endfor %}
