@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 
 admin.site.site_header = 'Gestión de datos y administación de usuarios SFPC'
 
@@ -25,4 +26,5 @@ urlpatterns = [
     path('app/', include('app.urls', namespace='app')),
     path('appremoto/', include('appremoto.urls', namespace='appremoto')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('', RedirectView.as_view(url='/appremoto/', permanent=True)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

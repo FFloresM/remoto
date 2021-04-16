@@ -36,19 +36,21 @@
           </div>
           {%endif%}
         </div>
-        {% if user.is_authenticated %}
-        <span class="navbar-text">Usiario: {{ user.get_username }}</span>
-     <a class="nav-link" href="{% url 'logout'%}?next={{request.path}}">Cerrar sesión</a>
-   {% else %}
-     <a class="nav-link" href="{% url 'login'%}">Iniciar sesión</a>
-   {% endif %} 
+        {% if user.is_authenticated%}
+          {% if user|has_group:'Administrador' %}
+            <span class="navbar-text">Administrador: {{ user.get_username }}</span>
+          {% elif user|has_group:'Cliente'%}
+            <span class="navbar-text">Cliente: {{ user.get_username }}</span>
+          {% elif user|has_group:'Fiscalizador'%}
+            <span class="navbar-text">Fiscalizador: {{ user.get_username }}</span>
+          {% endif %}
+          <a class="nav-link" href="{% url 'logout'%}">Cerrar sesión</a>
+        {% else %}
+          <a class="nav-link" href="{% url 'login'%}">Iniciar sesión</a>
+        {% endif %} 
       </nav>
     {% endblock %}
-    {% if user|has_group:'Administrador' %}
-      <h1> Es administrador </h1>
-    {% else %}
-      <h1>NO Es administrador </h1>
-    {% endif %}
+    
     {% block content %}
       <div class="container">
         {% block page_content %}
