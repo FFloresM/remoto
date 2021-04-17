@@ -28,11 +28,26 @@
           </button>
           {% if user.is_authenticated %}
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link" href="/app/registros">Registros</a>
-              <a class="nav-link" href="{% url 'app:all-charts' %}">Grafico</a>
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/app/registros">Registros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'app:all-charts' %}">Grafico</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
               
-            </div>
+            </ul>
           </div>
           {%endif%}
         </div>
