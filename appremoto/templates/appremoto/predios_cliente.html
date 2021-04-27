@@ -18,12 +18,14 @@
             </h2>
             <div id="predio{{predio.id}}" class="accordion-collapse collapse" aria-labelledby="heading{{predio.id}}" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
+                    {% if pilas %}
                     <table class="table table-borderless table-hover">
                         <thead>
                         <tr>
                             <th scope="col">Pila</th>
                             <th scope="col">Fecha de creación</th>
                             <th scope="col">Estado</th>
+                            <th scope="col">Visitado</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -33,11 +35,15 @@
                                         <td>{{ pila.nombreID }}</td>
                                         <td>{{pila.fecha_creacion}}</td>
                                         <td>{{materia.estado}}</td>
+                                        <td></td>
                                     </tr>
                                 {% endif %}
                             {%endfor%}
                         </tbody>
                     </table>
+                    {% else %}
+                    <h4>Predio sin pilas</h4>
+                    {% endif %}
 
                 </div>
             </div>
