@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Cliente(models.Model):
     """ Empresa o agricultor que compra la lanza"""
@@ -17,6 +18,19 @@ class Cliente(models.Model):
 
     class Meta:
         ordering = ('nombre', )
+
+class CuentaUsuario(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.usuario.username + " de " + self.cliente.nombre
+    
+    class Meta:
+        ordering = ('usuario',)
+        verbose_name_plural = "Cuentas de Usuario"
+    
+
 
 class Lanza(models.Model):
     """Instrumento de medición"""

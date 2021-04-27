@@ -15,9 +15,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 @login_required()
 def index(request):
-	cliente = Cliente.objects.get(id=1)
-	lanzas = Lanza.objects.all()
-	pilas = Pila.objects.all()
+	cu = CuentaUsuario.objects.get(usuario=request.user)
+	cliente = cu.cliente
+	lanzas = Lanza.objects.filter(cliente=cliente)
+	pilas = Pila.objects.filter(cliente=cliente)
 	context = {
 		'cliente': cliente,
 		'lanzas': lanzas,
@@ -75,8 +76,9 @@ class RegistrosView(LoginRequiredMixin, generic.ListView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
+		cu = CuentaUsuario.objects.get(usuario=self.request.user)
 		context['now'] = timezone.now()
-		context['pilas'] = Pila.objects.all()
+		context['pilas'] = Pila.objects.filter(cliente=cu.cliente)
 		return context
 
 @login_required()
