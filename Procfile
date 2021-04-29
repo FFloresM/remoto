@@ -1,0 +1,1 @@
+web: gunicorn remoto.wsgi --log-file -
