@@ -26,5 +26,5 @@ urlpatterns = [
     path('app/', include('app.urls', namespace='app')),
     path('appremoto/', include('appremoto.urls', namespace='appremoto')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', RedirectView.as_view(url='/appremoto/', permanent=True)),
+    path('', RedirectView.as_view(url='/accounts/login/', permanent=True)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

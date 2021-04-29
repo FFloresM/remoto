@@ -1,5 +1,9 @@
 {% extends 'base_generic.html' %}
 
+{% block title %}
+    Iniciar Sesión
+{% endblock title %}
+
 {% block page_content %}
 
 {% if form.errors %}
@@ -20,7 +24,7 @@
     {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
+<form method="post">{# action="{% url 'login' %}"> #}
     {% csrf_token %}
     <div class="login">
         {% if error_message %}

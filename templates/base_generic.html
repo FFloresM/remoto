@@ -29,12 +29,14 @@
           {% if user.is_authenticated %}
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
+              {% if user|has_group:'Cliente' %}
               <li class="nav-item">
                 <a class="nav-link" href="/app/registros">Registros</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'app:all-charts' %}">Grafico</a>
               </li>
+              {% endif %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"  aria-expanded="false">
                   Dropdown
