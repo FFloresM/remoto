@@ -18,8 +18,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
+from rest_framework import routers
+from app import views
 
 admin.site.site_header = 'Gestión de datos y administación de usuarios SFPC'
+
+router = routers.DefaultRouter()
+router.register('users', views.UserViewSet)
+router.register('groups', views.GroupViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +33,6 @@ urlpatterns = [
     path('appremoto/', include('appremoto.urls', namespace='appremoto')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', RedirectView.as_view(url='/accounts/login/', permanent=True)),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
