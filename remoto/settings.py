@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'remoto.eba-33w5ym8b.us-west-2.elasticbeanstalk.com',
+    '34.215.111.15',
 ]
 
 
