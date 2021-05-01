@@ -26,6 +26,7 @@ admin.site.site_header = 'Gestión de datos y administación de usuarios SFPC'
 router = routers.DefaultRouter()
 router.register('users', views.UserViewSet)
 router.register('groups', views.GroupViewSet)
+router.register('clientes', views.ClienteViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

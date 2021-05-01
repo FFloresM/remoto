@@ -14,9 +14,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 #para rest
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer
+from rest_framework import viewsets, permissions
+from .serializers import *
 
 class UserViewSet(viewsets.ModelViewSet):
 	"""
@@ -32,6 +31,12 @@ class GroupViewSet(viewsets.ModelViewSet):
 	"""
 	queryset = Group.objects.all()
 	serializer_class = GroupSerializer
+	permission_classes = [permissions.IsAuthenticated]
+
+class ClienteViewSet(viewsets.ModelViewSet):
+	""" API endpoint para clientes """
+	queryset = Cliente.objects.all()
+	serializer_class = ClienteSerializer
 	permission_classes = [permissions.IsAuthenticated]
 
 @login_required()
