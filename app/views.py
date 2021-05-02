@@ -39,6 +39,43 @@ class ClienteViewSet(viewsets.ModelViewSet):
 	serializer_class = ClienteSerializer
 	permission_classes = [permissions.IsAuthenticated]
 
+class CuentaUsuarioViewSet(viewsets.ModelViewSet):
+	""" API endpoint para cuentausuario"""
+	queryset = CuentaUsuario.objects.all()
+	serializer_class = CuentaUsuarioSerializer
+	permission_classes = [permissions.IsAuthenticated]
+
+class LanzaViewSet(viewsets.ModelViewSet):
+	""" API endpoint para Lanza"""
+	queryset = Lanza.objects.all()
+	serializer_class = LanzaSerializer
+	permission_classes = [permissions.IsAuthenticated]
+
+class PilaViewSet(viewsets.ModelViewSet):
+	""" API endpoint para Pila"""
+	queryset = Pila.objects.all()
+	serializer_class = PilaSerializer
+	permission_classes = [permissions.IsAuthenticated]
+
+class MedicionViewSet(viewsets.ModelViewSet):
+	""" API endpoint para Medicion"""
+	queryset = Medicion.objects.all()
+	serializer_class = MedicionSerializer
+	permission_classes = [permissions.IsAuthenticated]
+
+class MateriaPrimaViewSet(viewsets.ModelViewSet):
+	""" API endpoint para MateriaPrima"""
+	queryset = MateriaPrima.objects.all()
+	serializer_class = MateriaPrimaSerializer
+	permission_classes = [permissions.IsAuthenticated]
+
+class PredioViewSet(viewsets.ModelViewSet):
+	""" API endpoint para Predio"""
+	queryset = Predio.objects.all()
+	serializer_class = PredioSerializer
+	permission_classes = [permissions.IsAuthenticated]
+
+#vistas de la app
 @login_required()
 def index(request):
 	cu = CuentaUsuario.objects.get(usuario=request.user)
