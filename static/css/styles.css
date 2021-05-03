@@ -19,8 +19,19 @@
     border-style: solid;
     border-width: 2px;
     border-radius: 5px;
+
 }
 
 td {
     cursor: pointer;
+}
+
+#login {
+    /*background-color: #cccccc;
+    background: linear-gradient(blue, green, brown) fixed;*/
+    background: url(../img/backgroung_img.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }

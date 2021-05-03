@@ -20,6 +20,12 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from rest_framework import routers
 from app import views
+#rest jwt
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 admin.site.site_header = 'Gestión de datos y administación de usuarios SFPC'
 
@@ -42,4 +48,6 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/accounts/login/', permanent=True)),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
