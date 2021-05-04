@@ -4,6 +4,8 @@
     Iniciar Sesión
 {% endblock title %}
 
+{% block body_class %}login-background{% endblock body_class %}
+
 {% block page_content %}
 
 {% if form.errors %}
@@ -50,6 +52,5 @@
 </form>
 
 {# Asume que #}
-
 
 {% endblock page_content %}

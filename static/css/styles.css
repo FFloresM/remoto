@@ -26,7 +26,7 @@ td {
     cursor: pointer;
 }
 
-#login {
+.login-background {
     /*background-color: #cccccc;
     background: linear-gradient(blue, green, brown) fixed;*/
     background: url(../img/backgroung_img.jpg) no-repeat center center fixed; 
@@ -34,4 +34,9 @@ td {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+.body-background {
+    background-color: #f8f8ed;
+    /*background: linear-gradient(rgb(141, 141, 253), rgb(187, 255, 187), rgb(255, 147, 147)) fixed;*/
 }
