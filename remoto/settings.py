@@ -133,7 +133,7 @@ LOGIN_REDIRECT_URL = '/'
 
 LANGUAGE_CODE = 'es-cl'
 TIME_ZONE = 'America/Santiago'
-DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S'
+DATETIME_FORMAT = 'd/m/Y'
 USE_L10N = False
 USE_TZ = True
 
