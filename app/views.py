@@ -12,6 +12,7 @@ from .pdftezt import *
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import authenticate, login
 #para rest
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions
@@ -120,10 +121,12 @@ class PredioCreate(LoginRequiredMixin, CreateView):
 def medicionesPila(request, pk):
 	pila = Pila.objects.get(id=pk)
 	query = Medicion.objects.filter(pila=pila)
+	last_foto = query[len(query)-1].foto
 	materia_prima = MateriaPrima.objects.filter(pila=pila)
 	context = {
 		'registros': query,
 		'pila': pila,
+		'foto': last_foto,
 		'materia_prima': materia_prima,
 	}
 	return render(request, 'app/mediciones_pila.html', context)
@@ -173,6 +176,7 @@ def allCharts(request):
 def pdf_test(request, pk):
 	#queries for models
 	mediciones = Medicion.objects.filter(pila__id=pk).values_list()
+	last_foto = mediciones[len(mediciones)-1].foto
 	pila = Pila.objects.get(id=pk)
 	cliente = Cliente.objects.get(id=pila.cliente_id)
 	lanza = Lanza.objects.get(cliente=cliente)
@@ -185,7 +189,7 @@ def pdf_test(request, pk):
 	setTitle(title)
 	pageinfo = f"pila-{pila.nombreID}/{cliente.nombre}/{lanza.numero_serie}/"+hoy.strftime("%H:%M/%d-%m-%y")
 	setPageInfo(pageinfo)
-	setDataFirstTable(cliente, lanza, pila.foto.file.name)
+	setDataFirstTable(cliente, lanza, last_foto.file.name)
 	setDetallePila(pila)
 	setMateriasPrimas(materiaprima)
 	setDataMediciones(mediciones)

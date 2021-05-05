@@ -27,9 +27,9 @@ SECRET_KEY = '#cy+p(06o7kd!-k0)1b+u=tr8v=^s0(c3#_5ina_88g92+=3fx'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '127.0.0.1',
     'remoto.eba-33w5ym8b.us-west-2.elasticbeanstalk.com',
     '34.215.111.15',
+    '127.0.0.1',
 ]
 
 
@@ -126,7 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LOGIN_REDIRECT_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -154,3 +153,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SESSION_COOKIE_AGE = 15 * 60
 
 STATIC_ROOT = '/static'
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/appremoto'

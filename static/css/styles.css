@@ -37,6 +37,15 @@ td {
 }
 
 .body-background {
-    background-color: #f8f8ed;
-    /*background: linear-gradient(rgb(141, 141, 253), rgb(187, 255, 187), rgb(255, 147, 147)) fixed;*/
+    background: url(../img/backgroung_img.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    /*background-color: #f8f8ed;*/
+    /*background: linear-gradient(white, rgb(201, 245, 201)) fixed;*/
+}
+
+.fondo-blanco {
+    background-color: white;
 }

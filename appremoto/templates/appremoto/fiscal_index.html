@@ -5,37 +5,39 @@
 {% endblock %}
 
 {% block page_content %}
-    <br>
-    <h3 style="text-align: center;">Clientes</h3>
+    <div class="fondo-blanco">
+        <br>
+        <h3 style="text-align: center;">Clientes</h3>
 
-    <table id="tableIndex" class="table table-hover">
-     <caption>Lista de clientes</caption>
-        <thead>
-        <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">RUT</th>
-            <th scope="col">Dirección</th>
-            <th scope="col">Teléfono</th>
-            <th scope="col">Email</th>
-            <th scope="col">Predios</th>
-            <th scope="col">Pilas</th>
-        </tr>
-        </thead>
-        <tbody>
-            {% for cliente in clientes %}
-            <tr onclick="window.location='{% url 'appremoto:predios' cliente.id %}';"> 
-                <td>{{ cliente.nombre }}</td>
-                <td>{{ cliente.rut }}</td>
-                <td>{{ cliente.direccion }}</td>
-                <td>{{ cliente.telefono }}</td>
-                <td>{{ cliente.email }}</td>
-                <td>{{ cliente.predio_set.all|length }}</td>
-                <td>{{ cliente.pila_set.all|length }}</td>
-               
+        <table id="tableIndex" class="table table-hover">
+        <caption>Lista de clientes</caption>
+            <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">RUT</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Email</th>
+                <th scope="col">Predios</th>
+                <th scope="col">Pilas</th>
             </tr>
-        {% endfor %}
-        </tbody>
-  </table>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr onclick="window.location='{% url 'appremoto:predios' cliente.id %}';"> 
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.rut }}</td>
+                    <td>{{ cliente.direccion }}</td>
+                    <td>{{ cliente.telefono }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.predio_set.all|length }}</td>
+                    <td>{{ cliente.pila_set.all|length }}</td>
+                
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     
 

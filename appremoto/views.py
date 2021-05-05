@@ -29,4 +29,7 @@ def predios(request, pk):
     }
 
     return render(request, 'appremoto/predios_cliente.html', context)
+
+def home(request):
+    return render(request, 'appremoto/welcome.html' )
     

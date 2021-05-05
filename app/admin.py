@@ -15,7 +15,7 @@ class MateriaPrimaAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'pila')
 
 class MedicionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'temperatura', 'humedad', 'pila')
+    list_display = ('id', 'pila', 'temperatura', 'humedad')
 
 class PilaAdmin(admin.ModelAdmin):
     list_display = ('nombreID', 'predio', 'cliente')
