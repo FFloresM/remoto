@@ -1,7 +1,9 @@
 {% extends "base_generic.html" %}
 
+{% block content_class %}{% endblock content_class %}
 {% block page_content %}
-<p>¡hasta pronto!</p>
-
-<a href="{% url 'login'%}">Iniciar sesión</a>
+<div style="text-align: center;">
+    <h1>¡hasta pronto!</h1>
+    <a class="btn btn-primary" role="button" href="{% url 'login'%}">Iniciar sesión</a>
+</div>
 {% endblock %}

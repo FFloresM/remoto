@@ -69,7 +69,7 @@
 	      <th>{{pila.nombreID}}</th>
 	      <td>{{pila.predio}}</td>
 	      <td>{{pila.fecha_creacion|date:"d-m-Y"}}</td>
-	      <td>{{pila.estado}}</td>
+	      <td>{{pila.estado_actual}}</td>
 	      <th>
 	      	{#<a class="btn btn-warning btn-sm" href="{% url 'app:pila-update' pila.id %}" role="button">Editar</a>#}
 	      	<a class="btn btn-primary btn-sm" href="{% url 'app:mediciones-pila' pila.id %}" role="button">Ver Detalle</a>

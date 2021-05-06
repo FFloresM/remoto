@@ -41,9 +41,9 @@ def myLaterPages(canvas, doc):
 data = [["","","",""],["","","",""],["","","",""],["","","",""]]
 def setDataFirstTable(cliente, lanza, url):
     global data
-    P = Image(url, width=130, height=100) if url != None else "sin foto"
+    P = [Image(url, width=130, height=100)] if url != None else "sin foto"
     data= [
-        ['CLIENTE', 'LANZA',[P]],
+        ['CLIENTE', 'LANZA', P],
         [f'Nombre:\n{cliente.nombre}',f'Código: {lanza.codigo}',""],#,""],
         [f'Email:\n{cliente.email}',f'Modelo: {lanza.modelo}',""],#,""],
         [f'Dirección:\n{cliente.direccion}',f'Serie: {lanza.numero_serie}',""],#,""]
@@ -83,21 +83,22 @@ def getMPTable():
 def setDataMediciones(mediciones):
     global data_mediciones
     data_mediciones = [
-        [Par(11,"Fecha"), Par(11,"Temperatura"), Par(11,"Humedad")],
+        [Par(11,"Día"), Par(11,"Fecha"), Par(11,"Temperatura"), Par(11,"Humedad")],
     ]
-    i = 1
-    for m in mediciones:
-        m = list(m[1:-2])
-        m[0] = m[0].strftime("%d-%m-%Y")
+    #i = 1
+    for i,m in enumerate(mediciones, start=1):
+        m = list(m[:-3])
+        m[1] = m[1].strftime("%d-%m-%Y")
+        m[0] = i
         data_mediciones.append(m)
-        i=i+1
+        #i=i+1
 
 
 
 def getTablaMediciones():
-    medicionesTable = Table(data_mediciones, colWidths=2*inch)
+    medicionesTable = Table(data_mediciones, colWidths=1.5*inch)
     medicionesTable.setStyle(TableStyle([
-        ('LINEBELOW', (0,0), (2,0), 1, colors.black),
+        ('LINEBELOW', (0,0), (3,0), 1, colors.black),
         ('LINEBELOW', (0,1), (-1,-1), 0.5, colors.black),
         ]))
     return medicionesTable
@@ -128,6 +129,7 @@ def getPlot():
     bc.height = 125
     bc.width = 300
     bc.data = temps
+    bc.lines[0].symbol = makeMarker('Triangle')
     #labels
     yilabel = Label()
     yilabel.setText("Temperatura (°C)")
@@ -145,21 +147,27 @@ def getPlot():
     labelH.setText("Humedad")
     labelH.setOrigin(285,185)
 
+    label55 = Label()
+    label55.setText("55°")
+    label55.setOrigin(150, 185)
+
 
     bc.xValueAxis.valueMin = 0
-    bc.xValueAxis.valueMax = 20
-    bc.xValueAxis.valueSteps = [x for x in range(1,bc.xValueAxis.valueMax)]
+    bc.xValueAxis.valueMax = 30
+    bc.xValueAxis.valueSteps = [x for x in range(0,bc.xValueAxis.valueMax, 5)]
     #bc.xValueAxis.labelTextFormat = '%2.1f'
     bc.yValueAxis.valueMin = 0
-    bc.yValueAxis.valueMax = 60
-    bc.yValueAxis.valueSteps = [0, 10, 20, 30, 40, 50, 60]
+    bc.yValueAxis.valueMax = 80
+    bc.yValueAxis.valueSteps = [0, 10, 20, 30, 40, 50, 60, 70, 80]
     drawing.add(bc)
     drawing.add(yilabel)
     drawing.add(xlabel)
     drawing.add(Line(170,185,185,185, strokeColor=colors.red))
     drawing.add(Line(250,185,265,185, strokeColor=colors.blue))
+    drawing.add(Line(130,185,143,185, strokeColor=colors.black, strokeDashArray=[2,2]))
     drawing.add(labelT)
     drawing.add(labelH)
+    drawing.add(label55)
 
     #humedad=[[(0.5, 4), (1.5, 3), (2.5, 4), (3.5, 6), (4.5, 4), (5.5, 2), (6.5, 5), (7.5, 6)]]
     humedad = [getHumedad()]
@@ -178,7 +186,7 @@ def getPlot():
     lp.joinedLines = 1
     lp.lines[0].symbol = makeMarker('Circle')
     lp.lines[0].strokeColor=colors.blue
-    lp.lineLabelFormat = '%2.0f'
+    #lp.lineLabelFormat = '%2.0f'
     lp.xValueAxis.valueMin = 0
     lp.xValueAxis.valueMax = bc.xValueAxis.valueMax
     lp.yValueAxis.valueMin = 0

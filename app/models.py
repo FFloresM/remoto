@@ -89,11 +89,11 @@ class Medicion(models.Model):
     pila = models.ForeignKey('Pila', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.fecha_creacion
+        return self.fecha_creacion.strftime("%d-%m-%Y")
     
     class Meta:
         verbose_name_plural = 'Mediciones'
-        ordering = ('lanza', )
+        ordering = ('fecha_creacion', )
 
 class MateriaPrima(models.Model):
     """Materias primas utilizadas en el compost"""
