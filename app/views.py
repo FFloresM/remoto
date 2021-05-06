@@ -175,8 +175,9 @@ def allCharts(request):
 @login_required()
 def pdf_test(request, pk):
 	#queries for models
-	mediciones = Medicion.objects.filter(pila__id=pk).values_list()
-	last_foto = mediciones[len(mediciones)-1].foto
+	mediciones_ = Medicion.objects.filter(pila__id=pk)
+	mediciones = mediciones_.values_list()
+	last_foto = mediciones_[len(mediciones_)-1].foto
 	pila = Pila.objects.get(id=pk)
 	cliente = Cliente.objects.get(id=pila.cliente_id)
 	lanza = Lanza.objects.get(cliente=cliente)
@@ -189,7 +190,10 @@ def pdf_test(request, pk):
 	setTitle(title)
 	pageinfo = f"pila-{pila.nombreID}/{cliente.nombre}/{lanza.numero_serie}/"+hoy.strftime("%H:%M/%d-%m-%y")
 	setPageInfo(pageinfo)
-	setDataFirstTable(cliente, lanza, last_foto.file.name)
+	if last_foto:
+		setDataFirstTable(cliente, lanza, last_foto.file.name)
+	else:
+		setDataFirstTable(cliente, lanza, None)
 	setDetallePila(pila)
 	setMateriasPrimas(materiaprima)
 	setDataMediciones(mediciones)

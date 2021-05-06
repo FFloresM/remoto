@@ -63,10 +63,16 @@ class Pila(models.Model):
     def estado_actual(self):
         temps = self.medicion_set.values_list('temperatura', flat=True)
         if temps:
-            if len(list(filter(lambda i:i<=45, temps))):
-                    pass
-                    #ver gráfico con temps de cecilia!!!!
-
+            if len(list(filter(lambda i:i<=45, temps))) > 1:
+                return "Fase I: mesófila"
+            elif len(list(filter(lambda i:i>45, temps))) > 7:
+                return 'Fase II: termófila'
+            elif len(list(filter(lambda i:i<=45, temps))) >= 28:
+                return 'Fase III: enfriamiento'
+            elif len(temps) >= 35 and len(list(filter(lambda i:i<=45, temps))) >= 28:
+                return 'Fase IV: maduración'
+            else:
+                return "indeterminado"
         else:
             return "Pila sin registros"
 
@@ -82,6 +88,9 @@ class Medicion(models.Model):
     lanza = models.ForeignKey('Lanza', on_delete=models.DO_NOTHING)
     pila = models.ForeignKey('Pila', on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return self.fecha_creacion
+    
     class Meta:
         verbose_name_plural = 'Mediciones'
         ordering = ('lanza', )

@@ -41,7 +41,7 @@ def myLaterPages(canvas, doc):
 data = [["","","",""],["","","",""],["","","",""],["","","",""]]
 def setDataFirstTable(cliente, lanza, url):
     global data
-    P = Image(url, width=130, height=100)
+    P = Image(url, width=130, height=100) if url != None else "sin foto"
     data= [
         ['CLIENTE', 'LANZA',[P]],
         [f'Nombre:\n{cliente.nombre}',f'Código: {lanza.codigo}',""],#,""],
@@ -61,7 +61,7 @@ def getFirstTable():
 def setDetallePila(pila):
     global detallePila
     detallePila = Paragraph(
-        f"""<b>Posición:</b> <a href="https://www.google.cl/maps/@-36.8174503,-73.0423481,14.21z">{pila.posicion}</a>\t <b>Predio:</b> {pila.predio} \t<b>Último estado:</b> {pila.estado}""", 
+        f"""<b>Posición:</b> <a href="https://www.google.cl/maps/@-36.8174503,-73.0423481,14.21z">{pila.posicion}</a>\t <b>Predio:</b> {pila.predio} \t<b>Último estado:</b> {pila.estado_actual()}""", 
         styles["BodyText"]
         )
 
