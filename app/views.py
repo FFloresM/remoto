@@ -121,7 +121,7 @@ class PredioCreate(LoginRequiredMixin, CreateView):
 def medicionesPila(request, pk):
 	pila = Pila.objects.get(id=pk)
 	query = Medicion.objects.filter(pila=pila)
-	last_foto = query[len(query)-1].foto
+	last_foto = query[len(query)-1].foto if len(query) else None
 	materia_prima = MateriaPrima.objects.filter(pila=pila)
 	context = {
 		'registros': query,
