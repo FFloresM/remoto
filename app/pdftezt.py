@@ -7,6 +7,7 @@ from reportlab.lib import colors
 from reportlab.graphics.charts.lineplots import LinePlot
 from reportlab.graphics.shapes import Drawing, Line, String
 from reportlab.graphics.widgets.markers import makeMarker
+from reportlab.graphics.widgets.grids import Grid
 from reportlab.graphics.charts.axes import YValueAxis
 from reportlab.graphics.charts.textlabels import Label
 
@@ -119,9 +120,8 @@ def setHumedad(humedades):
 def getHumedad():
     return humedad
 
-def getPlot():
+def getTempPlot():
     drawing = Drawing(400, 200)
-    #temps = [((0.5,7), (1.5,1), (2.5,2), (3.5,1), (4.5,3), (5.5,5), (6.5, 10), (7.5,6))]
     temps = [getTemps()]
     bc = LinePlot()
     bc.x = 50
@@ -129,8 +129,7 @@ def getPlot():
     bc.height = 125
     bc.width = 300
     bc.data = temps
-    bc.lines[0].symbol = makeMarker('Triangle')
-    #title
+    bc.lines[0].symbol = makeMarker('Circle')
     
     #labels
     yilabel = Label()
@@ -141,17 +140,17 @@ def getPlot():
     xlabel.setText("Días")
     xlabel.setOrigin(200,20)
 
-    labelT = Label()
-    labelT.setText("Temperatura")
-    labelT.setOrigin(210,185)
+    #labelT = Label()
+    #labelT.setText("Temperatura")
+    #labelT.setOrigin(210,185)
 
-    labelH = Label()
-    labelH.setText("Humedad")
-    labelH.setOrigin(285,185)
+    #labelH = Label()
+    #labelH.setText("Humedad")
+    #labelH.setOrigin(285,185)
 
     label55 = Label()
     label55.setText("55°")
-    label55.setOrigin(150, 185)
+    label55.setOrigin(325, 185)
 
 
     bc.xValueAxis.valueMin = 0
@@ -164,50 +163,45 @@ def getPlot():
     drawing.add(bc)
     drawing.add(yilabel)
     drawing.add(xlabel)
-    drawing.add(Line(170,185,185,185, strokeColor=colors.red))
-    drawing.add(Line(250,185,265,185, strokeColor=colors.blue))
-    drawing.add(Line(130,185,143,185, strokeColor=colors.black, strokeDashArray=[2,2]))
-    drawing.add(labelT)
-    drawing.add(labelH)
+    #drawing.add(Line(170,185,185,185, strokeColor=colors.red))
+    #drawing.add(Line(250,185,265,185, strokeColor=colors.blue))
+    drawing.add(Line(300,185,315,185, strokeColor=colors.black, strokeDashArray=[2,2]))
+    drawing.add(Line(50,135,350,135, strokeColor=colors.black, strokeDashArray=[2,2]))
+    #drawing.add(labelT)
+    #drawing.add(labelH)
     drawing.add(label55)
-    drawing.add(String(160, 200, "Gráfico", fontSize=20))
+    #drawing.add(Grid())
+    drawing.add(String(130, 200, "Gráfico de temperaturas", fontSize=16))
 
-    #humedad=[[(0.5, 4), (1.5, 3), (2.5, 4), (3.5, 6), (4.5, 4), (5.5, 2), (6.5, 5), (7.5, 6)]]
+    return drawing
+
+def getHumPlot():
+    drawing = Drawing(400, 200)
     humedad = [getHumedad()]
     lp = LinePlot()
-    lp.x = bc.x
-    lp.y = bc.y
-    lp.height = bc.height
-    lp.width = bc.width
+    lp.x = 50
+    lp.y = 50
+    lp.height = 125
+    lp.width = 300
     lp.data = humedad
-
+    
     ydlabel = Label()
     ydlabel.setText("Humedad (%)")
-    ydlabel.angle = -90
-    ydlabel.setOrigin(lp.x+lp.width+30,lp.y+70)
-
-    lp.joinedLines = 1
+    ydlabel.angle = 90
+    ydlabel.setOrigin(20,120)
+    
+    lp.joinedLines = 2
     lp.lines[0].symbol = makeMarker('Circle')
     lp.lines[0].strokeColor=colors.blue
-    #lp.lineLabelFormat = '%2.0f'
     lp.xValueAxis.valueMin = 0
-    lp.xValueAxis.valueMax = bc.xValueAxis.valueMax
+    lp.xValueAxis.valueMax = 30
     lp.yValueAxis.valueMin = 0
     lp.yValueAxis.valueMax = 100
-    lp.xValueAxis.visible=False
-    lp.yValueAxis.visible=False #Hide 2nd plot its Yaxis
+    #lp.xValueAxis.visible=False
+    #lp.yValueAxis.visible=False #Hide 2nd plot its Yaxis
     drawing.add(lp)
     drawing.add(ydlabel)
-
-    y2Axis = YValueAxis()#Replicate 2nd plot Yaxis in the right
-    y2Axis.setProperties(lp.yValueAxis.getProperties())
-    y2Axis.setPosition(lp.x+lp.width,lp.y,lp.height)
-    y2Axis.tickRight=5
-    y2Axis.tickLeft=0
-    y2Axis.labels.dx = 20
-    y2Axis.configure(humedad)
-    y2Axis.visible=True
-    drawing.add(y2Axis)
+    drawing.add(String(130, 200, "Gráfico de humedad", fontSize=16))
 
     return drawing
 
@@ -225,9 +219,9 @@ def go(buffer):
     Story.append(Par(13,"Mediciones"))
     Story.append(Spacer(1,0.2*inch))
     Story.append(getTablaMediciones())
-    #Story.append(Spacer(1,2*inch))
-    #Story.append(Par(13,"Gráfico"))
-    Story.append(getPlot())
+    Story.append(getTempPlot())
+    Story.append(Spacer(1,1*inch))
+    Story.append(getHumPlot())
     doc.build(Story, onFirstPage=myFirstPage, onLaterPages=myLaterPages)
 
 if __name__ == "__main__":
