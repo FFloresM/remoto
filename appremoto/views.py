@@ -30,6 +30,7 @@ def predios(request, pk):
 
     return render(request, 'appremoto/predios_cliente.html', context)
 
+@login_required
 def home(request):
     return render(request, 'appremoto/welcome.html' )
     

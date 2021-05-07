@@ -34,7 +34,7 @@
                                     <tr onclick="window.location='{% url 'app:mediciones-pila' pila.id %}';">
                                         <td>{{ pila.nombreID }}</td>
                                         <td>{{pila.fecha_creacion}}</td>
-                                        <td>{{materia.estado}}</td>
+                                        <td>{{pila.estado_actual}}</td>
                                         <td></td>
                                     </tr>
                                 {% endif %}

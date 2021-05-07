@@ -5,7 +5,7 @@ from reportlab.lib.units import inch
 from reportlab.lib import colors
 #graphics
 from reportlab.graphics.charts.lineplots import LinePlot
-from reportlab.graphics.shapes import Drawing, Line
+from reportlab.graphics.shapes import Drawing, Line, String
 from reportlab.graphics.widgets.markers import makeMarker
 from reportlab.graphics.charts.axes import YValueAxis
 from reportlab.graphics.charts.textlabels import Label
@@ -130,6 +130,8 @@ def getPlot():
     bc.width = 300
     bc.data = temps
     bc.lines[0].symbol = makeMarker('Triangle')
+    #title
+    
     #labels
     yilabel = Label()
     yilabel.setText("Temperatura (°C)")
@@ -168,6 +170,7 @@ def getPlot():
     drawing.add(labelT)
     drawing.add(labelH)
     drawing.add(label55)
+    drawing.add(String(160, 200, "Gráfico", fontSize=20))
 
     #humedad=[[(0.5, 4), (1.5, 3), (2.5, 4), (3.5, 6), (4.5, 4), (5.5, 2), (6.5, 5), (7.5, 6)]]
     humedad = [getHumedad()]
@@ -222,8 +225,8 @@ def go(buffer):
     Story.append(Par(13,"Mediciones"))
     Story.append(Spacer(1,0.2*inch))
     Story.append(getTablaMediciones())
-    Story.append(Spacer(1,0.2*inch))
-    Story.append(Par(13,"Gráfico"))
+    #Story.append(Spacer(1,2*inch))
+    #Story.append(Par(13,"Gráfico"))
     Story.append(getPlot())
     doc.build(Story, onFirstPage=myFirstPage, onLaterPages=myLaterPages)
 
