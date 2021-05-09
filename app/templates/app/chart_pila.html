@@ -6,11 +6,15 @@
 
 {% block page_content %}
 <br>
-<h4 class="text-center">Gráfico para Pila {{pila.nombreID}}</h4>
-<canvas id="myChart" width="400" height="200"></canvas>
+<h4 class="text-center">Temperaturas Pila {{pila.nombreID}}</h4>
+<canvas id="temp" width="400" height="200"></canvas>
+
+<h4 class="text-center">Humedad Pila {{pila.nombreID}}</h4>
+<canvas id="hum" width="400" height="200"></canvas>
 <script>
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
+var ctx = document.getElementById('temp').getContext('2d');
+var ctx1 = document.getElementById('hum').getContext('2d');
+var tempChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: {{ dias }},
@@ -22,25 +26,19 @@ var myChart = new Chart(ctx, {
             lineTension: 0
         },
         {
-            label: "temp de volteo",
+            label: "55°C",
             borderColor: "rgb(0,0,0)",
-            data: [55, 55,55,55,55],
+            data: {{ FF }},
+            borderDash: [5, 5],
             fill: false,
             lineTension: 0,
             radius: 0
-        },
-        {
-            label: "Humedad",
-            borderColor: "rgb(0,0,255)",
-            data: {{ humedad }},
-            fill: false,
-            lineTension: 0
         }]
     },
     options: {
         title: {
             display: true,
-            text: 'Evolución de Temperatura y Humedad'
+            text: 'Evolución de Temperatura'
         },
         scales: {
             xAxes: [{
@@ -55,19 +53,52 @@ var myChart = new Chart(ctx, {
                 position: 'left',
                 scaleLabel: {
                     display: true,
-                    labelString: 'temperatura',
+                    labelString: 'Temperatura (°C)',
                 },
                 ticks: {
                     beginAtZero: true
                 }
-            },
-            {
-                //type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+            }]
+        }
+    }
+});
+var humChart = new Chart(ctx1, {
+    type: 'line',
+    data: {
+        labels: {{ dias }},
+        datasets: [{
+            label: "Humedad",
+            borderColor: "rgb(0,0,255)",
+            data: {{ humedad }},
+            fill: false,
+            lineTension: 0
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: 'Evolución de Humedad'
+        },
+        scales: {
+            xAxes: [{
                 display: true,
-                position: 'right',
                 scaleLabel: {
                     display: true,
-                    labelString: 'humedad',
+                    labelString: 'días'
+                }
+            }],
+            yAxes: [{
+                //type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                display: true,
+                position: 'left',
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Humedad (%)',
+                },
+                ticks: {
+                    max: 100,
+                    min: 0,
+                    stepSize: 10
                 },
                 id: 'y-axis-1'
 			}]

@@ -153,7 +153,8 @@ def chart(request, pk):
 	pila = Pila.objects.get(id=pk)
 	temps = mediciones.values_list('temperatura', flat=True)
 	dates = mediciones.values_list('fecha_creacion', flat=True)
-	dias = [date.day for date in dates ]
+	dias = [i for i in range(1,len(dates)+1) ]
+	_55 = [55 for i in dias]
 	humedad = mediciones.values_list('humedad', flat=True)
 	context = {
 		'pila': pila,
@@ -161,14 +162,32 @@ def chart(request, pk):
 		'dias': dias,
 		'dates': dates,
 		'humedad': list(humedad),
+		'FF': _55,
 	}
 	return render(request, 'app/chart_pila.html', context)
 
 @login_required()
 def allCharts(request):
-	mediciones = Medicion.objects.all()
+	cu = CuentaUsuario.objects.get(usuario=request.user)
+	cliente = cu.cliente
+	pilas = Medicion.objects.filter(pila__cliente=cliente).values_list('pila', flat=True).distinct().order_by()
+	temps = {}
+	hum = {}
+	color = {}
+	R = 255
+	for p in pilas:
+		p_ID = Pila.objects.get(id=p)
+		med = Medicion.objects.filter(pila_id=p)
+		temps[p_ID.nombreID] = list(med.values_list('temperatura', flat=True))
+		color['borderColor'] = f"rgb({R},0,0)"
+		hum[p_ID.nombreID] = list(med.values_list('humedad', flat=True))
+		R=R-20
+	#dias = [i for i in range(1,len(dates)+1) ]
+	_55 = [55]*10
 	context = {
-		'mediciones': mediciones,
+		'temps': temps,
+		'hum': hum,
+		'FF': _55,
 	}
 	return render(request, 'app/chart.html', context)
 
