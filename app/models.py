@@ -40,25 +40,19 @@ class Lanza(models.Model):
     cliente = models.ForeignKey('Cliente', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return self.codigo
+        return f"{self.codigo} - {self.cliente.nombre}"
 
 class Pila(models.Model):
     """Pila"""
-    estado_choices = [
-        ('mesófila', 'Fase I: mesófila'),
-        ('termófila', 'Fase II: termófila'),
-        ('enfriamiento', 'Fase III: enfriamiento'),
-        ('maduración', 'Fase IV: maduración'),
-    ]
     nombreID = models.CharField(max_length=10, default=None)
     fecha_creacion = models.DateTimeField("fecha de creación", auto_now_add=True)
-    #estado = models.CharField(max_length=50, choices=estado_choices)
     cliente = models.ForeignKey('Cliente', on_delete=models.DO_NOTHING, null=True)
     posicion = models.CharField(max_length=20, null=True) #solo para prubas
     predio = models.ForeignKey('Predio', on_delete=models.SET_NULL, null=True)
+    visitado = models.BooleanField(default=False)
 
     def __str__(self):
-    	return self.nombreID
+    	return f"{self.nombreID} - {self.cliente.nombre}"
 
     def estado_actual(self):
         temps = self.medicion_set.values_list('temperatura', flat=True)

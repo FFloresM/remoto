@@ -29,7 +29,7 @@
     {% if user.is_authenticated %}
       <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <div class="container">
-        {% if user|has_group:'Administrador' %}
+        {% if user|has_group:'Administrador' or user|has_group:'Fiscalizador'%}
           <a class="navbar-brand" href="{% url 'appremoto:clienteIndex' %}">SFPC</a>
         {% elif user|has_group:'Cliente' %}
           <a class="navbar-brand" href="{% url 'app:index' %}">Inicio</a>

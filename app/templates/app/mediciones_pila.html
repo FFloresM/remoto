@@ -17,11 +17,9 @@
         <b>Posición:</b> {{ pila.posicion }}<br>
         {% endif%}
         <b>Predio:</b> {{ pila.predio }} <br>
-        {%if pila.estado%}
-        <b>Estado:</b> {{ pila.estado }}
-        {%endif%}
+        <b>Estado:</b> {{ pila.estado_actual }}
       </td>
-      {% if pila.foto %}
+      {% if foto %}
         <td>
           <img src="{{ foto.url }}" alt="foto-pila" width="300" height="200"> 
         </td>
