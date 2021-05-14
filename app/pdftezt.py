@@ -26,6 +26,7 @@ def Par(font_size, text):
 	return Paragraph(f"""<font size={font_size}><b>{text}</b></font>""", styles["BodyText"])
 
 def myFirstPage(canvas, doc):
+    canvas.setTitle(Title)
     canvas.saveState()
     canvas.setFont('Times-Bold',16)
     canvas.drawCentredString(PAGE_WIDTH/2.0, PAGE_HEIGHT-50, Title)
